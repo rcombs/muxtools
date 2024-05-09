@@ -35,23 +35,12 @@ def _weight_to_name(weight: int) -> str | int:
 
 def _get_fontname(font: ABCFontFace) -> str:
     filename_fallback = False
-    exact_fallback = False
 
-    name = ""
     try:
-        try:
-            found = font.get_family_name_from_lang("en")
-            if not found:
-                found = font.get_best_family_name()
-            name = found.value
-        except:
-            pass
-        if not name:
-            found = font.get_exact_name_from_lang("en")
-            if not found:
-                found = font.get_best_exact_name()
-            name = found.value
-            exact_fallback = True
+        found = font.get_family_name_from_lang("en")
+        if not found:
+            found = font.get_best_family_name()
+        name = found.value
     except:
         name = Path(font.font_file.filename).with_suffix("").name.strip()
         filename_fallback = True
@@ -59,8 +48,6 @@ def _get_fontname(font: ABCFontFace) -> str:
     if not filename_fallback:
         if " " in name:
             name = "".join([(part.capitalize() if part.islower() else part) for part in name.split(" ")])
-        elif "-" in name and exact_fallback:
-            name = "".join([(part.strip().capitalize() if part.islower() else part.strip()) for part in name.split("-")])
         else:
             name = name.capitalize()
         weight = _weight_to_name(font.weight)
