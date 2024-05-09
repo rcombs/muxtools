@@ -53,7 +53,7 @@ def _get_fontname(font: ABCFontFace) -> str:
             name = found.value
             exact_fallback = True
     except:
-        name = Path(font.filename).with_suffix("").name.strip()
+        name = Path(font.font_file.filename).with_suffix("").name.strip()
         filename_fallback = True
 
     if not filename_fallback:
