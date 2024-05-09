@@ -426,7 +426,7 @@ class SubFile(BaseSubFile):
                 resolved_paths.append(f)
         from .font import collect_fonts as collect
 
-        debug(f"Collecting fonts for '{self.file.stem}'...", self)
+        info(f"Collecting fonts for '{self.file.stem}'...", self)
 
         return collect(self, use_system_fonts, resolved_paths, collect_draw_fonts, error_missing)
 

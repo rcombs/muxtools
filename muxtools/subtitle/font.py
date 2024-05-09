@@ -58,17 +58,17 @@ def _get_fontname(font: ABCFontFace) -> str:
 
     if not filename_fallback:
         if " " in name:
-            name = "".join([part.capitalize() for part in name.split(" ")])
+            name = "".join([(part.capitalize() if part.islower() else part) for part in name.split(" ")])
         elif "-" in name and exact_fallback:
-            name = "".join([part.strip().capitalize() for part in name.split("-")])
+            name = "".join([(part.strip().capitalize() if part.islower() else part.strip()) for part in name.split("-")])
         else:
             name = name.capitalize()
         weight = _weight_to_name(font.weight)
         name = f"{name}{'-' + weight if weight and weight not in name else ''}"
         if isinstance(weight, int):
-            name += f"-{'Italic' if font.italic else ''}"
+            name += f"-{'Italic' if font.is_italic else ''}"
         else:
-            name += "Italic" if font.italic else ""
+            name += "Italic" if font.is_italic else ""
 
     return name
 
