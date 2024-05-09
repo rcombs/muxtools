@@ -64,7 +64,7 @@ def _get_fontname(font: ABCFontFace) -> str:
         else:
             name = name.capitalize()
         weight = _weight_to_name(font.weight)
-        name = f"{name}{'-' + weight if weight and weight not in name else ''}"
+        name = f"{name}{'-' + weight if weight and str(weight) not in name else ''}"
         if isinstance(weight, int):
             name += f"-{'Italic' if font.is_italic else ''}"
         else:
